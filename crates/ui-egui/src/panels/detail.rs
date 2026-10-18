@@ -1763,8 +1763,10 @@ fn crop_overlay(app: &mut LightcraftApp, ui: &mut egui::Ui, resp: &egui::Respons
                 shown_angle = (ang * 100.0).round() / 100.0;
                 // `start_rect` is the drawn crop, not the last step's shrunken one: without it a
                 // centred crop comes back as the whole photo (issue #1794).
-                let _ =
-                    app.run("crop.straighten", json!({"angle": shown_angle, "from": [start_rect.x0, start_rect.y0, start_rect.x1, start_rect.y1]}));
+                let _ = app.run(
+                    "crop.straighten",
+                    json!({"angle": shown_angle, "from": {"rect": [start_rect.x0, start_rect.y0, start_rect.x1, start_rect.y1], "angle": start_angle}}),
+                );
             }
             _ => {}
         }
